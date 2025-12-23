@@ -19,6 +19,7 @@ map('n', 'gr', telescope_lsp('lsp_references', vim.lsp.buf.references), { desc =
 map('n', 'gi', telescope_lsp('lsp_implementations', vim.lsp.buf.implementation), { desc = 'LSP: implementations (telescope)' })
 map('n', 'gt', telescope_lsp('lsp_type_definitions', vim.lsp.buf.type_definition), { desc = 'LSP: type definitions (telescope)' })
 map('n', 'gO', telescope_lsp('lsp_document_symbols', vim.lsp.buf.document_symbol), { desc = 'LSP: document symbols (telescope)' })
+map('n', 'gd', telescope_lsp('lsp_definitions', vim.lsp.buf.document_symbol), { desc = 'LSP: Go to definition' })
 
 map('n', ';', ':', { desc = 'CMD enter command mode' })
 map('i', 'jk', '<ESC>')
