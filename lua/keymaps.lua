@@ -23,9 +23,6 @@ map('n', 'gd', telescope_lsp('lsp_definitions', vim.lsp.buf.document_symbol), { 
 
 map('n', ';', ':', { desc = 'CMD enter command mode' })
 map('i', 'jk', '<ESC>')
-map('n', '<leader>lw', function()
-  vim.diagnostic.setloclist()
-end, { desc = 'Diagnostic setloclist' })
 
 map('n', '<leader>h', '<cmd>nohlsearch<CR>', { desc = 'set no highlight search' })
 map('n', '<A-j>', '<cmd> m .+1<CR>==', { desc = 'Move line down' })
@@ -46,6 +43,10 @@ map('n', '<leader>gg', '<Cmd> LazyGit <CR>', { desc = 'start LazyGit' })
 map('n', '<leader>d', ' Run/Debug')
 map('n', '<leader>fe', '<Cmd>Telescope emoji<CR>', { desc = '😃 [F]ind [E]moji' })
 map('n', '<leader>l', ' Lsp')
+map('n', '<leader>lw', function()
+  vim.diagnostic.setloclist()
+end, { desc = 'Diagnostic setloclist' })
+map('n', '<leader>la', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { desc = 'code actions' })
 
 map('n', '<leader>t', ' Telescope or  Trouble')
 map('n', '<leader>tr', '<Cmd>Telescope resume<CR>')
