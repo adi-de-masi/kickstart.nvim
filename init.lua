@@ -293,6 +293,9 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'giuxtaposition/blink-cmp-copilot',
+  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -771,6 +774,9 @@ require('lazy').setup({
           return 'make install_jsregexp'
         end)(),
         dependencies = {
+          -- Add the copilot source for blink here as well to ensure it loads
+          'giuxtaposition/blink-cmp-copilot',
+          'zbirenbaum/copilot.lua', -- Ensure the base copilot plugin is also present
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
@@ -829,8 +835,14 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'copilot', 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
+          copilot = {
+            name = 'copilot',
+            module = 'blink-cmp-copilot',
+            score_offset = 100,
+            async = true,
+          },
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         },
       },
