@@ -62,7 +62,7 @@ map('n', '<leader>od', '<Cmd>ObsidianDailies<CR>', { silent = true })
 map('n', '<leader>oq', '<Cmd>ObsidianQuickSwitch<CR>', { silent = true })
 map('n', '<leader>on', '<Cmd>ObsidianNew<CR>', { silent = true })
 
-map('n', '<leader>e', '<Cmd>NvimTreeFindFileToggle<CR>', { silent = true })
+map('n', '<leader>e', '<Cmd>Neotree toggle<CR>')
 map('n', '<leader><Tab>', '<Cmd>bn<CR>', { desc = 'next buffer' })
 map('n', '<leader><S-Tab>', '<Cmd>bp<CR>', { desc = 'previous buffer' })
 map('n', '<leader>x', '<Cmd>bd<CR>', { desc = 'delete buffer' })
