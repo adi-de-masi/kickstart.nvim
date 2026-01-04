@@ -95,7 +95,6 @@ vim.g.loaded_netrwPlugin = 1
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ','
 vim.g.maplocalleader = ','
-vim.g.vscode_snippets_path = '~/.config/lvim/snippets/my-snippets'
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -814,14 +813,17 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
-          -- {
-          --   'rafamadriz/friendly-snippets',
-          --   config = function()
-          --     require('luasnip.loaders.from_vscode').lazy_load()
-          --   end,
-          -- },
+          {
+            'rafamadriz/friendly-snippets',
+            config = function()
+              require('luasnip.loaders.from_vscode').lazy_load()
+            end,
+          },
         },
-        opts = {},
+        config = function()
+          -- load snippets from path/of/your/nvim/config/my-cool-snippets
+          require('luasnip.loaders.from_vscode').lazy_load { paths = { '~/.config/lvim/snippets/my-snippets' } }
+        end,
       },
       'folke/lazydev.nvim',
     },
@@ -886,8 +888,8 @@ require('lazy').setup({
           },
         },
       },
-
       sources = {
+
         default = { 'copilot', 'lsp', 'path', 'snippets', 'lazydev' },
         providers = {
           copilot = {
