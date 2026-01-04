@@ -6,15 +6,15 @@ return {
     'copilotlsp-nvim/copilot-lsp',
   },
   opts = {
-    nes = {
-      enabled = true,
-      keymap = {
-        accept_and_goto = '<leader>p',
-        accept = false,
-        dismiss = '<Esc>',
-      },
-    },
-    suggestion = { enabled = false },
+    -- nes = {
+    --   enabled = true,
+    --   keymap = {
+    --     accept_and_goto = '<C-y>',
+    --     accept = false,
+    --     dismiss = '<Esc>',
+    --   },
+    -- },
+    suggestion = { enabled = true },
     panel = { enabled = false },
   },
 }
