@@ -1,73 +1,46 @@
 return {
-  'epwalsh/obsidian.nvim',
-  version = '*', -- Use the latest release
+  'obsidian-nvim/obsidian.nvim',
+  version = '*', -- use latest release, remove to use latest commit
   lazy = true,
   event = {
-    -- Load obsidian.nvim only when opening files in the vault
-    'BufReadPre '
-      .. vim.fn.expand '~/AdisObsidianSyncVault'
-      .. '/*.md',
-    'BufNewFile ' .. vim.fn.expand '~/AdisObsidianSyncVault' .. '/*.md',
+    -- If you want to use the home shortcut '~' here, you need to call 'vim.fn.expand'.
+    "BufReadPre " .. vim.fn.expand "~" .. "/AdisObsidianSyncVault/**.md",
+    "BufNewFile " .. vim.fn.expand "~" .. "/AdisObsidianSyncVault/**.md",
   },
-
   dependencies = {
-    'nvim-lua/plenary.nvim', -- Required dependency
-    'hrsh7th/nvim-cmp',
+    'nvim-lua/plenary.nvim',
   },
-
-  opts = function(_, opts)
-    vim.api.nvim_create_autocmd('FileType', {
-      pattern = { 'markdown', 'md' },
-      callback = function()
-        vim.wo.conceallevel = 1
-      end,
-    })
-    return {
-      workspaces = {
-        {
-          name = 'work',
-          path = '~/AdisObsidianSyncVault', -- Define your vault path
-        },
+  cmd = {
+    "ObsidianOpen",
+    "ObsidianNew",
+    "ObsidianQuickSwitch",
+    "ObsidianFollowLink",
+    "ObsidianBacklinks",
+    "ObsidianTags",
+    "ObsidianToday",
+    "ObsidianYesterday",
+    "ObsidianTomorrow",
+    "ObsidianDailies",
+    "ObsidianTemplate",
+    "ObsidianSearch",
+    "ObsidianLink",
+    "ObsidianLinkNew",
+    "ObsidianLinks",
+    "ObsidianExtractNote",
+    "ObsidianWorkspace",
+    "ObsidianPasteImg",
+    "ObsidianRename",
+    "ObsidianTOC",
+  },
+  ---@module 'obsidian'
+  ---@type obsidian.config
+  opts = {
+    legacy_commands = false, -- this will be removed in the next major release
+    workspaces = {
+      {
+        name = 'MyOnlyVault',
+        path = '~/AdisObsidianSyncVault',
       },
-      templates = {
-        folder = '~/AdisObsidianSyncVault/Templates',
-        date_format = '%d.%m.%Y',
-        time_format = '%H:%M',
-      },
-      -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
-      completion = {
-        -- Set to false to disable completion.
-        nvim_cmp = true,
-        -- Trigger completion at 2 chars.
-        min_chars = 2,
-      },
-
-      ui = {
-        -- recommended here: https://github.com/MeanderingProgrammer/render-markdown.nvim
-        enabled = false,
-      },
-
-      note_id_func = function(title)
-        -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-        -- In this case a note with the title 'My new note' will be given an ID that looks
-        -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-        local suffix = ''
-        if title ~= nil then
-          -- If title is given, transform it into valid file name.
-          suffix = title:gsub(' ', '-'):gsub('[^A-Za-z0-9-]', ''):lower()
-        else
-          -- If title is nil, just add 4 random uppercase letters to the suffix.
-          for _ = 1, 4 do
-            suffix = suffix .. string.char(math.random(65, 90))
-          end
-        end
-        return tostring(os.time()) .. '-' .. suffix
-      end,
-
-      note_path_func = function(spec)
-        local path = spec.dir / tostring(spec.title)
-        return path:with_suffix '.md'
-      end,
-    }
-  end,
+    },
+  },
 }
