@@ -2,11 +2,13 @@ return {
   'obsidian-nvim/obsidian.nvim',
   version = '*', -- use latest release, remove to use latest commit
   lazy = true,
-  event = {
-    -- If you want to use the home shortcut '~' here, you need to call 'vim.fn.expand'.
-    "BufReadPre " .. vim.fn.expand "~" .. "/AdisObsidianSyncVault/**.md",
-    "BufNewFile " .. vim.fn.expand "~" .. "/AdisObsidianSyncVault/**.md",
-  },
+  event = function()
+    local vault_path = vim.fn.expand("~/AdisObsidianSyncVault")
+    return {
+      "BufReadPre " .. vault_path .. "/**/*.md",
+      "BufNewFile " .. vault_path .. "/**/*.md",
+    }
+  end,
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
