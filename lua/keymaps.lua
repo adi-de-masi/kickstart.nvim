@@ -42,6 +42,7 @@ map('n', '<leader>gg', '<Cmd> LazyGit <CR>', { desc = 'start LazyGit' })
 
 map('n', '<leader>d', ' Run/Debug')
 map('n', '<leader>fe', '<Cmd>Telescope emoji<CR>', { desc = '😃 [F]ind [E]moji' })
+map('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', { desc = '😃 [F]ind [B]uffer' })
 map('n', '<leader>l', ' Lsp')
 map('n', '<leader>lw', function()
   vim.diagnostic.setloclist()
@@ -50,14 +51,10 @@ map('n', '<leader>la', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { desc = 'code 
 
 map('n', '<leader>t', ' Telescope or  Trouble')
 map('n', '<leader>tr', '<Cmd>Telescope resume<CR>')
-map('n', '<leader>o', ' Obsidian')
 map('n', '<leader>r', ' Render Markdown')
 map('n', '<leader>rt', '<Cmd>RenderMarkdown toggle<CR>', { desc = 'toggle render markdown', silent = true })
 map('n', '<leader>re', '<Cmd>RenderMarkdown expand<CR>', { desc = 'Increase anti-conceal margin above and below by 1', silent = true })
 map('n', '<leader>re', '<Cmd>RenderMarkdown expand<CR>', { desc = 'Decrease anti-conceal margin above and below by 1', silent = true })
-map('n', '<leader>ot', '<Cmd>Obsidian today<CR>', { silent = true })
-map('n', '<leader>od', '<Cmd>Obsidian dailies<CR>', { silent = true })
-map('n', '<leader>oq', '<Cmd>Obsidian quick_switch<CR>', { silent = true })
 
 map('n', '<leader>e', '<Cmd>Neotree toggle<CR>')
 map('n', '<leader><Tab>', '<Cmd>bn<CR>', { desc = 'next buffer' })
