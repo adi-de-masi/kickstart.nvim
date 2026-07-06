@@ -16,4 +16,8 @@ return {
       },
     },
   },
+  keys = {
+    { '<leader>o', '', desc = 'Obsidian' },
+    { '<leader>oq', '<cmd>Obsidian quick_switch<cr>', desc = 'Obsidian Quickswitcher' },
+  },
 }
