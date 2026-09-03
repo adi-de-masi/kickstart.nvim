@@ -442,6 +442,12 @@ do
 
   -- ... and there is more!
   --  Check out: https://github.com/nvim-mini/mini.nvim
+  --
+  --
+  --  vim tmux navigation
+  require('custom.plugins.nvim-tmux-navigation')
+  require('custom.plugins.render-markdown')
+  require('custom.plugins.markdown-preview')
 end
 
 -- ============================================================
@@ -449,6 +455,7 @@ end
 -- Telescope setup, keymaps, LSP picker mappings
 -- ============================================================
 do
+  require 'keymaps'
   -- [[ Fuzzy Finder (files, lsp, etc) ]]
   --
   -- Telescope is a fuzzy finder that comes with a lot of different things that
