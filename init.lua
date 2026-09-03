@@ -83,6 +83,12 @@ I hope you enjoy your Neovim journey,
 
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
+--
+--
+-- NvimTree
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- ============================================================
 -- SECTION 1: OPTIONS
@@ -91,15 +97,12 @@ P.S. You can delete this when you're done too. It's your config now! :)
 do
   -- Enable faster startup by caching compiled Lua modules
   vim.loader.enable()
-
-  -- Set <space> as the leader key
-  -- See `:help mapleader`
   --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-  vim.g.mapleader = ' '
-  vim.g.maplocalleader = ' '
-
+  vim.g.mapleader = ','
+  vim.g.maplocalleader = ','
+  vim.g.vscode_snippets_path = '~/.config/lvim/snippets/my-snippets'
   -- Set to true if you have a Nerd Font installed and selected in the terminal
-  vim.g.have_nerd_font = false
+  vim.g.have_nerd_font = true
 
   -- [[ Setting options ]]
   --  See `:help vim.o`
@@ -180,6 +183,8 @@ end
 do
   -- [[ Basic Keymaps ]]
   --  See `:help vim.keymap.set()`
+
+  require 'keymaps'
 
   -- Clear highlights on search when pressing <Esc> in normal mode
   --  See `:help hlsearch`
@@ -793,7 +798,6 @@ do
       else
         return nil
       end
-    end,
     default_format_opts = {
       lsp_format = 'fallback', -- Use external formatters if configured below, otherwise use LSP formatting. Set to `false` to disable LSP formatting entirely.
     },
@@ -979,8 +983,33 @@ do
   -- NOTE: You can add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- require 'custom.plugins'
-end
+  require 'custom.plugins'
+  --
+  -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
+  -- Or use telescope!
+  -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
+  -- you can continue same window with `<space>sr` which resumes last telescope search
+}, {
+  ui = {
+    -- If you are using a Nerd Font: set icons to an empty table which will use the
+    -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
+    icons = vim.g.have_nerd_font and {} or {
+      cmd = '⌘',
+      config = '🛠',
+      event = '📅',
+      ft = '📂',
+      init = '⚙',
+      keys = '🗝',
+      plugin = '🔌',
+      runtime = '💻',
+      require = '🌙',
+      source = '📄',
+      start = '🚀',
+      task = '📌',
+      lazy = '💤 ',
+    },
+  },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
