@@ -445,9 +445,9 @@ do
   --
   --
   --  vim tmux navigation
-  require('custom.plugins.nvim-tmux-navigation')
-  require('custom.plugins.render-markdown')
-  require('custom.plugins.markdown-preview')
+  require 'custom.plugins.nvim-tmux-navigation'
+  require 'custom.plugins.render-markdown'
+  require 'custom.plugins.markdown-preview'
 end
 
 -- ============================================================
@@ -765,6 +765,8 @@ do
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
+    'prettier',
+    'sql-formatter',
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -807,6 +809,10 @@ do
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      -- formatters_by_ft = {
+      json = { 'prettier' },
+      jsonc = { 'prettier' },
+      sql = { 'sql_formatter' },
     },
   }
 
@@ -956,7 +962,6 @@ do
     end,
   })
 end
-
 
 -- ============================================================
 -- SECTION 10: OPTIONAL EXAMPLES / NEXT STEPS
