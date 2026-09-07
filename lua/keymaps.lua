@@ -2,9 +2,8 @@
 local map = vim.keymap.set
 --local unmap = vim.keymap.del
 
--- Neovim 0.11+ ships default LSP keymaps in `vim/_defaults.lua` (e.g. `grr`, `gri`, `grt`),
--- but those use the built-in UI (often a locations list / read-only buffer).
--- Override them here to prefer Telescope pickers.
+-- Keep LSP commands under <leader>l. Telescope-backed commands fall back to
+-- Neovim's native LSP UI when Telescope is unavailable.
 local function telescope_lsp(picker, fallback, picker_opts)
   return function()
     local ok, builtin = pcall(require, 'telescope.builtin')
@@ -15,11 +14,18 @@ local function telescope_lsp(picker, fallback, picker_opts)
   end
 end
 
-map('n', 'grr', telescope_lsp('lsp_references', vim.lsp.buf.references), { desc = 'LSP: references (telescope)' })
-map('n', 'gi', telescope_lsp('lsp_implementations', vim.lsp.buf.implementation), { desc = 'LSP: implementations (telescope)' })
-map('n', 'gt', telescope_lsp('lsp_type_definitions', vim.lsp.buf.type_definition), { desc = 'LSP: type definitions (telescope)' })
-map('n', 'gO', telescope_lsp('lsp_document_symbols', vim.lsp.buf.document_symbol), { desc = 'LSP: document symbols (telescope)' })
-map('n', 'gd', telescope_lsp('lsp_definitions', vim.lsp.buf.document_symbol), { desc = 'LSP: Go to definition' })
+-- Neovim defines these globally. Remove them so <leader>l is the only LSP
+-- command family in this configuration.
+for _, keys in ipairs { 'grn', 'gra', 'grr', 'gri', 'grt', 'grx' } do
+  pcall(vim.keymap.del, 'n', keys)
+end
+
+map('n', '<leader>lr', telescope_lsp('lsp_references', vim.lsp.buf.references), { desc = 'LSP: [R]eferences' })
+map('n', '<leader>li', telescope_lsp('lsp_implementations', vim.lsp.buf.implementation), { desc = 'LSP: [I]mplementations' })
+map('n', '<leader>lt', telescope_lsp('lsp_type_definitions', vim.lsp.buf.type_definition), { desc = 'LSP: [T]ype definitions' })
+map('n', '<leader>lo', telescope_lsp('lsp_document_symbols', vim.lsp.buf.document_symbol), { desc = 'LSP: D[o]cument symbols' })
+map('n', '<leader>lS', telescope_lsp('lsp_dynamic_workspace_symbols', vim.lsp.buf.workspace_symbol), { desc = 'LSP: Work[S]pace symbols' })
+map('n', '<leader>ld', telescope_lsp('lsp_definitions', vim.lsp.buf.definition), { desc = 'LSP: [D]efinition' })
 
 map('n', ';', ':', { desc = 'CMD enter command mode' })
 map('i', 'jk', '<ESC>')
@@ -41,17 +47,22 @@ map('n', '<leader>m', '<Cmd>MarkdownPreview<CR>', { silent = true })
 map('n', '<leader>gg', '<Cmd> LazyGit <CR>', { desc = 'start LazyGit' })
 
 map('n', '<leader>d', ' Run/Debug')
-map('n', '<leader>fe', '<Cmd>Telescope emoji<CR>', { desc = '😃 [F]ind [E]moji' })
-map('n', '<leader>fb', '<Cmd>Telescope buffers<CR>', { desc = '😃 [F]ind [B]uffer' })
-map('n', '<leader>l', ' Lsp')
+map('n', '<leader>se', '<Cmd>Telescope emoji<CR>', { desc = '😃 [S]earch [E]moji' })
+map('n', '<leader>tb', '<Cmd>Telescope buffers<CR>', { desc = 'Telescope: [B]uffers' })
+map('n', '<leader>tq', '<Cmd>Telescope quickfix<CR>', { desc = 'Telescope: [Q]uickfix list' })
+map('n', '<leader>tl', '<Cmd>Telescope loclist<CR>', { desc = 'Telescope: [L]ocation list' })
+map('n', '<leader>tm', '<Cmd>Telescope marks<CR>', { desc = 'Telescope: [M]arks' })
+map('n', '<leader>tg', '<Cmd>Telescope git_status<CR>', { desc = 'Telescope: [G]it status' })
+map('n', '<leader>tB', '<Cmd>Telescope git_branches<CR>', { desc = 'Telescope: Git [B]ranches' })
 map('n', '<leader>lw', function()
   vim.diagnostic.setloclist()
 end, { desc = 'Diagnostic setloclist' })
-map('n', '<leader>la', '<Cmd>lua vim.lsp.buf.code_action()<CR>', { desc = 'code actions' })
+map({ 'n', 'x' }, '<leader>la', vim.lsp.buf.code_action, { desc = 'LSP: Code [A]ctions' })
+map('n', '<leader>ln', vim.lsp.buf.rename, { desc = 'LSP: Re[n]ame' })
+map('n', '<leader>lD', vim.lsp.buf.declaration, { desc = 'LSP: [D]eclaration' })
+map('n', '<leader>lc', vim.lsp.codelens.run, { desc = 'LSP: [C]ode lens' })
 
-map('n', '<leader>t', ' Telescope or  Trouble')
-map('n', '<leader>tr', '<Cmd>Telescope resume<CR>')
-map('n', '<leader>r', ' Render Markdown')
+map('n', '<leader>tr', '<Cmd>Telescope resume<CR>', { desc = 'Telescope: [R]esume' })
 map('n', '<leader>rt', '<Cmd>RenderMarkdown toggle<CR>', { desc = 'toggle render markdown', silent = true })
 map('n', '<leader>re', '<Cmd>RenderMarkdown expand<CR>', { desc = 'Increase anti-conceal margin above and below by 1', silent = true })
 map('n', '<leader>re', '<Cmd>RenderMarkdown expand<CR>', { desc = 'Decrease anti-conceal margin above and below by 1', silent = true })
