@@ -768,7 +768,8 @@ do
     'prettier',
     'sql-formatter',
     'ruff',
-    'ty'
+    'ty',
+    'markdownlint', -- required by kickstart/plugins/lint.lua for markdown buffers
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
